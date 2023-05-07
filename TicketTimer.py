@@ -7,7 +7,8 @@ TIMEFORMAT = '%H:%M'
 
 def main():
     while(True):
-        usedTicketNames: List[str] = getUsedTicketNames()
+        usedTickets = getUsedTickets()
+        usedTicketNames = [ticket["name"] for ticket in usedTickets]
         ticketName = askTicketName()
         checkValue(ticketName)
         if(checkIsUsedTicket(ticketName, usedTicketNames)):
@@ -15,11 +16,6 @@ def main():
         else:
             handleNewTicket(ticketName, usedTickets)
         overWriteFile(usedTickets)
-
-
-def getUsedTicketNames():
-    usedTickets = getUsedTickets()
-    return [ticket["name"] for ticket in usedTickets]
     
 
 def getUsedTickets():
