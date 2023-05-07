@@ -1,5 +1,5 @@
 from datetime import datetime
-from Constants import TIME_FORMAT, DATE_FORMAT
+from . import TIME_FORMAT, DATE_FORMAT
 
 
 class Ticket:    

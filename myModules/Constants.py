@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-FILENAME = '../resources/list.json'
+FILENAME = './resources/list.json'
 READ_MODE = 'r'
 WRITE_MODE = 'w'
 TIME_FORMAT = '%H:%M'

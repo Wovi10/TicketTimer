@@ -1,13 +1,9 @@
 import json
-import sys
 from datetime import datetime
 from typing import List
-from Constants import TIME_FORMAT, DATE_FORMAT, FILENAME, READ_MODE
-from Ticket import Ticket
-from sharedCode import overWriteFile
+from . import TIME_FORMAT, DATE_FORMAT, FILENAME, READ_MODE, Ticket, overWriteFile
 
-
-def main(ticketName: str):
+def manage(ticketName: str):
     usedTickets: List[Ticket] = getUsedTickets()
     usedTicketNames: List[str] = [ticket.name for ticket in usedTickets] or []
     
@@ -91,11 +87,3 @@ def handleNewTicket(name, usedTickets: List[Ticket]) -> List[str]:
     newList.append(newTicket)
     
     return newList
-    
- 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Error: A ticketName is required.")
-        sys.exit(1)
-    param = sys.argv[1]
-    main(param)

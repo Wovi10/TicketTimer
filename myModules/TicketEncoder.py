@@ -1,5 +1,5 @@
 from json import JSONEncoder
-from Ticket import Ticket
+from . import Ticket
 
 
 class TicketEncoder(JSONEncoder):

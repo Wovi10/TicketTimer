@@ -1,8 +1,7 @@
 import json
 from typing import List
-from Constants import FILENAME, WRITE_MODE
-from Ticket import Ticket
-from TicketEncoder import TicketEncoder
+from . import FILENAME, WRITE_MODE, Ticket
+from .TicketEncoder import TicketEncoder
 
 
 def overWriteFile(usedTickets: List[Ticket]):
