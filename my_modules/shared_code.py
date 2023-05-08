@@ -3,7 +3,8 @@
 # pylint: disable=missing-module-docstring
 import json
 from typing import List
-from . import FILENAME, WRITE_MODE, DEFAULT_ENCODING, Ticket
+from . import FILENAME, WRITE_MODE, DEFAULT_ENCODING
+from .ticket import Ticket
 from .ticket_encoder import TicketEncoder
 
 
