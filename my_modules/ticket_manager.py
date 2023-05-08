@@ -1,6 +1,7 @@
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-module-docstring
+# pylint: disable=cyclic-import
 import json
 from datetime import datetime
 from typing import List
