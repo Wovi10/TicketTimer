@@ -1,7 +1,7 @@
-from myModules import clearFile
+from my_modules import clear_file
 
 def main():
-    clearFile.clear()
+    clear_file.clear()
 
 if __name__ == "__main__":
     main()
