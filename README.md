@@ -33,5 +33,5 @@ python3 ./clear.py
 This will replace the file input with an empty array, ready for new use.
 
 ## Possible later additions
-Things that might be added are visible in the Issues.
+Things that might be added are visible in the Issues.  
 You can always fork this project if you want to add something. Any change requests can be done through issues.
