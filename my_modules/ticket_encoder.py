@@ -1,6 +1,3 @@
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
-# pylint: disable=missing-module-docstring
 from json import JSONEncoder
 from . import Ticket
 

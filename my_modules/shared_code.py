@@ -1,6 +1,3 @@
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
-# pylint: disable=missing-module-docstring
 import json
 from typing import List
 from . import FILENAME, WRITE_MODE, DEFAULT_ENCODING, Ticket

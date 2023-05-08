@@ -1,6 +1,3 @@
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
-# pylint: disable=missing-module-docstring
 import json
 from datetime import datetime
 from typing import List

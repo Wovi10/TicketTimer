@@ -1,6 +1,3 @@
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
-# pylint: disable=missing-module-docstring
 from my_modules import clear_file
 
 def main():
