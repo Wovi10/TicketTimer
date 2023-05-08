@@ -1,3 +1,6 @@
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-module-docstring
 from datetime import datetime
 from . import TIME_FORMAT, DATE_FORMAT
 
