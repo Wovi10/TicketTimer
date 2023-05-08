@@ -1,11 +1,12 @@
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-module-docstring
-# pylint: disable=cyclic-import
 import json
 from datetime import datetime
 from typing import List
-from . import TIME_FORMAT, DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING, Ticket, override_file
+from . import TIME_FORMAT, DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING
+from .ticket import Ticket
+from .shared_code import override_file
 
 def manage(ticket_name: str):
     used_tickets: List[Ticket] = get_used_tickets()
