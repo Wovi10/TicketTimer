@@ -1,8 +1,8 @@
 import sys
-from . import overWriteFile
+from . import override_file
 
 def clear():
-    overWriteFile([])
+    override_file([])
     print("File cleared")
     print()
     print()
