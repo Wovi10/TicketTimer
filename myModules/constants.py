@@ -4,7 +4,7 @@ from datetime import datetime
 FILENAME = './resources/list.json'
 READ_MODE = 'r'
 WRITE_MODE = 'w'
-TIME_FORMAT = '%H:%M'
+TIME_FORMAT = '%H:%M:%S'
 DATE_FORMAT = '%Y-%m-%d'
 NAME_FIELD = 'name'
 DATE_FIELD = 'date'
@@ -18,3 +18,4 @@ ALL_FIELDS = [
     (TIMEWORKED_FIELD, 0),
     (DATE_FIELD, datetime.now().strftime(DATE_FORMAT))
     ]
+DEFAULT_ENCODING = 'UTF-8'
