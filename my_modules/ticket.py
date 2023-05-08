@@ -5,6 +5,7 @@ from datetime import datetime
 from . import TIME_FORMAT, DATE_FORMAT
 
 
+# pylint: disable=too-few-public-methods
 class Ticket:
     NAME_DEFAULT = ""
     BUSY_DEFAULT = False
@@ -13,6 +14,7 @@ class Ticket:
     DATE_DEFAULT = datetime.now().strftime(DATE_FORMAT)
 
     # pylint: disable=invalid-name
+    # pylint: disable=too-many-arguments
     def __init__(self, name=NAME_DEFAULT, busy=BUSY_DEFAULT, startTime=STARTTIME_DEFAULT,
                  timeWorkedInMinutes=TIMEWORKED_DEFAULT, date=DATE_DEFAULT):
         self.name = name

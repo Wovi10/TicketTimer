@@ -21,8 +21,8 @@ def manage(ticket_name: str):
 
 def get_used_tickets() -> List[Ticket]:
     try:
-        with open(FILENAME, READ_MODE, encoding=DEFAULT_ENCODING) as f:
-            data = json.load(f)
+        with open(FILENAME, READ_MODE, encoding=DEFAULT_ENCODING) as file:
+            data = json.load(file)
         used_tickets = [Ticket(**ticket) for ticket in data]
         clean_file(used_tickets)
         return used_tickets
