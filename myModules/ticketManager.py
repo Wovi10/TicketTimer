@@ -68,9 +68,7 @@ def stopBusyTickets(usedTickets: List[Ticket]) -> List[Ticket]:
         startTime = datetime.strptime(ticket.startTime, TIME_FORMAT)
         timeDifference = endTime - startTime
         totalMinutes = int(timeDifference.total_seconds() / 60)
-        if ticket.timeWorkedInMinutes != 0:
-            totalMinutes += int(ticket.timeWorkedInMinutes)
-        ticket.timeWorkedInMinutes = totalMinutes
+        ticket.timeWorkedInMinutes += totalMinutes
         ticket.busy = False
     return newList
             
