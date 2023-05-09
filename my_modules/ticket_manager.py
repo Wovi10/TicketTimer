@@ -74,7 +74,7 @@ def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
 
         total_minutes = calculate_total_minutes(ticket)
         ticket.timeWorkedInMinutes += total_minutes
-        print(f"\t\tWorked {ticket.timeWorkedInMinutes} minutes")
+        print(f"\t\tWorked {total_minutes} minutes, {ticket.timeWorkedInMinutes} total")
         ticket.busy = False
         print("\t\tStopped")
     print()
