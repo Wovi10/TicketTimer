@@ -19,8 +19,6 @@ class Ticket:
                  timeWorkedInMinutes=TIMEWORKED_DEFAULT, date=DATE_DEFAULT):
         self.name = name
         self.busy = busy
-        if name == Ticket.NAME_DEFAULT:
-            self.busy = Ticket.BUSY_DEFAULT
         self.startTime = startTime
         self.timeWorkedInMinutes = timeWorkedInMinutes
         self.date = date
