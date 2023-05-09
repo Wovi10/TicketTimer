@@ -1,12 +1,10 @@
-# pylint: disable=missing-class-docstring
-# pylint: disable=missing-function-docstring
-# pylint: disable=missing-module-docstring
 import json
 from datetime import datetime
 from typing import List
 from . import TIME_FORMAT, DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING
 from .ticket import Ticket
 from .shared_code import override_file
+
 
 def manage(ticket_name: str):
     used_tickets: List[Ticket] = get_used_tickets()
@@ -23,8 +21,8 @@ def manage(ticket_name: str):
 
 def get_used_tickets() -> List[Ticket]:
     try:
-        with open(FILENAME, READ_MODE, encoding=DEFAULT_ENCODING) as file:
-            data = json.load(file)
+        with open(FILENAME, READ_MODE, encoding=DEFAULT_ENCODING) as f:
+            data = json.load(f)
         used_tickets = [Ticket(**ticket) for ticket in data]
         clean_file(used_tickets)
         return used_tickets
@@ -51,7 +49,7 @@ def handle_used_ticket(ticket_name: str, used_tickets: List[Ticket]) -> List[str
     is_busy_ticket = ticket_to_change.busy
     new_list = stop_busy_tickets(new_list)
     if not is_busy_ticket:
-        start_ticket(ticket_to_change)
+        ticket_to_change = start_ticket(ticket_to_change)
     return new_list
 
 
@@ -64,13 +62,19 @@ def get_ticket_to_change(ticket_name: str, used_tickets: List[Ticket]) -> Ticket
 
 def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
     new_list = used_tickets
+    print("Going over tickets")
     for ticket in new_list:
+        print(f"\t- {ticket.name}")
         if not ticket.busy:
+            print("\t\tSkipped")
             continue
 
         total_minutes = calculate_total_minutes(ticket)
         ticket.timeWorkedInMinutes += total_minutes
+        print(f"\t\tWorked {ticket.timeWorkedInMinutes} minutes")
         ticket.busy = False
+        print("\t\tStopped")
+    print()
     return new_list
 
 
@@ -82,15 +86,18 @@ def calculate_total_minutes(ticket: Ticket) -> int:
     return int(time_difference.total_seconds() / 60)
 
 
-def start_ticket(ticket_to_change: Ticket):
-    ticket_to_change.startTime = datetime.now().strftime(TIME_FORMAT)
-    ticket_to_change.busy = True
+def start_ticket(ticket: Ticket) -> Ticket:
+    ticket.startTime = datetime.now().strftime(TIME_FORMAT)
+    ticket.busy = True
+    print(f"Started {ticket.name}")
+    return ticket
 
 
 def handle_new_ticket(name, used_tickets: List[Ticket]) -> List[str]:
     new_list = used_tickets
     stop_busy_tickets(new_list)
     new_ticket = Ticket(name)
+    start_ticket(new_ticket)
     new_list.append(new_ticket)
 
     return new_list
