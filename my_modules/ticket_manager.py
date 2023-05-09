@@ -65,7 +65,7 @@ def get_ticket_to_change(ticket_name: str, used_tickets: List[Ticket]) -> Ticket
 
 def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
     new_list = used_tickets
-    print("Going over tickets")
+    print("Stopping tickets:")
     for ticket in new_list:
         print(f"\t- {ticket.name}")
         if not ticket.busy:
