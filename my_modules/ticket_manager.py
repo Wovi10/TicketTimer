@@ -4,7 +4,10 @@
 import json
 from datetime import datetime
 from typing import List
-from . import TIME_FORMAT, DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING
+
+from colorama import Fore, Style
+
+from . import TIME_FORMAT, DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING, log
 from .ticket import Ticket
 from .shared_code import override_file
 
@@ -50,7 +53,8 @@ def handle_used_ticket(ticket_name: str, used_tickets: List[Ticket]) -> List[str
     new_list = used_tickets
     ticket_to_change = get_ticket_to_change(ticket_name, new_list)
     is_busy_ticket = ticket_to_change.busy
-    new_list = stop_busy_tickets(new_list)
+    if len(new_list) > 0:
+        new_list = stop_busy_tickets(new_list)
     if not is_busy_ticket:
         ticket_to_change = start_ticket(ticket_to_change)
     return new_list
@@ -65,19 +69,21 @@ def get_ticket_to_change(ticket_name: str, used_tickets: List[Ticket]) -> Ticket
 
 def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
     new_list = used_tickets
-    print("Stopping tickets:")
+    log(f"{Fore.RED}Stopping{Style.RESET_ALL} tickets:")
     for ticket in new_list:
-        print(f"\t- {ticket.name}")
+        log(f"\t- {ticket.name}")
         if not ticket.busy:
-            print("\t\tSkipped")
+            log(f"\t\t{Fore.BLUE}Skipped{Style.RESET_ALL}")
             continue
 
-        total_minutes = calculate_total_minutes(ticket)
-        ticket.timeWorkedInMinutes += total_minutes
-        print(f"\t\tWorked {total_minutes} minutes, {ticket.timeWorkedInMinutes} total")
+        minutes_this_session = calculate_total_minutes(ticket)
+        ticket.timeWorkedInMinutes += minutes_this_session
+        log(f"\t\tWorked {Fore.GREEN}{minutes_this_session}{Style.RESET_ALL} minutes, " +
+              f"{Fore.GREEN}{ticket.timeWorkedInMinutes}{Style.RESET_ALL} total")
         ticket.busy = False
-        print("\t\tStopped")
-    print()
+        log(f"\t\t{Fore.RED}Stopped{Style.RESET_ALL}")
+    log()
+
     return new_list
 
 
@@ -92,7 +98,7 @@ def calculate_total_minutes(ticket: Ticket) -> int:
 def start_ticket(ticket: Ticket) -> Ticket:
     ticket.startTime = datetime.now().strftime(TIME_FORMAT)
     ticket.busy = True
-    print(f"Started {ticket.name}")
+    log(f"{Fore.GREEN}Started{Style.RESET_ALL} {ticket.name}")
     return ticket
 
 

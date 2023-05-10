@@ -3,12 +3,9 @@
 # pylint: disable=missing-module-docstring
 import sys
 from .shared_code import override_file
+from . import error
 
 def clear():
     override_file([])
-    print("File cleared")
-    print()
-    print()
-    print()
-    print()
+    error("File cleared")
     sys.exit(0)
