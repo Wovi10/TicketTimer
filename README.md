@@ -32,6 +32,9 @@ python3 ./clear.py
 
 This will replace the file input with an empty array, ready for new use.
 
+## Extra functionalities
+I have added a Logger file to make printing even easier. Feel free to implement extra things to it.
+
 ## Possible later additions
 Things that might be added are visible in the Issues.  
 You can always fork this project if you want to add something. Any change requests can be done through issues.
