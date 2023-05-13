@@ -4,21 +4,21 @@
 import json
 from datetime import datetime
 from typing import List
-
 from colorama import Fore, Style
 
-from . import TIME_FORMAT, DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING, log
+from . import DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING
+from .logger import log
 from .ticket import Ticket
-from .shared_code import override_file
+from .file_adjuster import override_file, stop_busy_tickets, start_ticket
 
 
-def manage(ticket_name: str):
+def add_entry(ticket_name: str) -> None:
     used_tickets: List[Ticket] = get_used_tickets()
     used_ticket_names: List[str] = [ticket.name for ticket in used_tickets] or []
 
     new_list = used_tickets
 
-    if is_used_ticket(ticket_name, used_ticket_names):
+    if ticket_name in used_ticket_names:
         new_list = handle_used_ticket(ticket_name, new_list)
     else:
         new_list = handle_new_ticket(ticket_name, new_list)
@@ -45,10 +45,6 @@ def clean_file(used_tickets: List[Ticket]) -> None:
     override_file(new_list)
 
 
-def is_used_ticket(ticket_name: str, used_ticket_names: List[str]) -> bool:
-    return ticket_name in used_ticket_names
-
-
 def handle_used_ticket(ticket_name: str, used_tickets: List[Ticket]) -> List[str]:
     new_list = used_tickets
     ticket_to_change = get_ticket_to_change(ticket_name, new_list)
@@ -61,45 +57,11 @@ def handle_used_ticket(ticket_name: str, used_tickets: List[Ticket]) -> List[str
 
 
 def get_ticket_to_change(ticket_name: str, used_tickets: List[Ticket]) -> Ticket:
+    ticket_name_small = ticket_name.lower()
     for ticket in used_tickets:
-        if ticket.name == ticket_name:
+        if ticket.name.lower() == ticket_name_small:
             return ticket
     return Ticket()
-
-
-def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
-    new_list = used_tickets
-    log(f"{Fore.RED}Stopping{Style.RESET_ALL} tickets:")
-    for ticket in new_list:
-        log(f"\t- {ticket.name}")
-        if not ticket.busy:
-            log(f"\t\t{Fore.BLUE}Skipped{Style.RESET_ALL}")
-            continue
-
-        minutes_this_session = calculate_total_minutes(ticket)
-        ticket.timeWorkedInMinutes += minutes_this_session
-        log(f"\t\tWorked {Fore.GREEN}{minutes_this_session}{Style.RESET_ALL} minutes, " +
-              f"{Fore.GREEN}{ticket.timeWorkedInMinutes}{Style.RESET_ALL} total")
-        ticket.busy = False
-        log(f"\t\t{Fore.RED}Stopped{Style.RESET_ALL}")
-    log()
-
-    return new_list
-
-
-def calculate_total_minutes(ticket: Ticket) -> int:
-    end_time = datetime.now().strftime(TIME_FORMAT)
-    end_time = datetime.strptime(end_time, TIME_FORMAT)
-    start_time = datetime.strptime(ticket.startTime, TIME_FORMAT)
-    time_difference = end_time - start_time
-    return int(time_difference.total_seconds() / 60)
-
-
-def start_ticket(ticket: Ticket) -> Ticket:
-    ticket.startTime = datetime.now().strftime(TIME_FORMAT)
-    ticket.busy = True
-    log(f"{Fore.GREEN}Started{Style.RESET_ALL} {ticket.name}")
-    return ticket
 
 
 def handle_new_ticket(name, used_tickets: List[Ticket]) -> List[str]:
@@ -110,3 +72,12 @@ def handle_new_ticket(name, used_tickets: List[Ticket]) -> List[str]:
     new_list.append(new_ticket)
 
     return new_list
+
+
+def rename(original_name: str, new_name: str) -> None:
+    used_tickets = get_used_tickets()
+    ticket_to_rename = get_ticket_to_change(original_name, used_tickets)
+    log(f"{Fore.GREEN}Found{Style.RESET_ALL} {ticket_to_rename.name}")
+    ticket_to_rename.name = new_name
+    override_file(used_tickets)
+    log(f"Renamed to {Fore.GREEN}{ticket_to_rename.name}{Style.RESET_ALL}")

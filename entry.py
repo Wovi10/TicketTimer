@@ -3,10 +3,10 @@
 # pylint: disable=missing-module-docstring
 import sys
 from my_modules import ticket_manager
-from my_modules import error
+from my_modules.logger import error
 
 def main(arg):
-    ticket_manager.manage(arg)
+    ticket_manager.add_entry(arg)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
