@@ -1,3 +1,6 @@
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-module-docstring
 from colorama import Fore, Back, Style
 
 def log(text = ""):
