@@ -2,8 +2,8 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-module-docstring
 import sys
-from .shared_code import override_file
-from . import error
+from .file_adjuster import override_file
+from .logger import error
 
 def clear():
     override_file([])
