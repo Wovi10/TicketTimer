@@ -29,7 +29,6 @@ You can call this script by using following script.
 ```
 python ./clear.py
 ```
-
 This will replace the file input with an empty array, ready for new use.
 
 ## rename.py
@@ -47,7 +46,6 @@ python ./update_entry.py {ticketName}
 ```
 If the given ticket is not in you list.json file, you will receive an error in the  console and the program will not do anything.  
 If the script is in the list.json file, the ticket startTime and timeWorkedInMinutes will be updated.
-
 
 ## Extra functionalities
 I have added a Logger file to make printing even easier. Feel free to implement extra things to it.
