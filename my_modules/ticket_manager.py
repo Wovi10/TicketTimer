@@ -9,7 +9,7 @@ from colorama import Fore, Style
 from . import DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING
 from .logger import log, error
 from .ticket import Ticket
-from .file_adjuster import (override_file, stop_busy_tickets, 
+from .file_adjuster import (override_file, stop_busy_tickets,
                             start_ticket, update_total_minutes_worked)
 
 
@@ -24,7 +24,6 @@ def add_entry(ticket_name: str) -> None:
     else:
         new_list = handle_new_ticket(ticket_name, new_list)
     override_file(new_list)
-    return
 
 
 def get_used_tickets() -> List[Ticket]:

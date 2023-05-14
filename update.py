@@ -3,15 +3,13 @@
 # pylint: disable=missing-module-docstring
 import sys
 from my_modules import ticket_manager
-from my_modules.logger import error
+from my_modules.input_sanitiser import sanitise_script_input
 
 def main(arg):
     ticket_manager.update_entry(arg)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        error("Error: A ticketName is required.")
-        sys.exit(1)
+    sanitise_script_input()
     PARAM = sys.argv[1]
     main(PARAM)
