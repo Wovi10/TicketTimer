@@ -27,14 +27,10 @@ def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
             log(f"\t\t{Fore.BLUE}Skipped{Style.RESET_ALL}")
             continue
 
-        minutes_this_session = calculate_total_minutes(ticket)
-        ticket.timeWorkedInMinutes += minutes_this_session
-        log(f"\t\tWorked {Fore.GREEN}{minutes_this_session}{Style.RESET_ALL} minutes, " +
-              f"{Fore.GREEN}{ticket.timeWorkedInMinutes}{Style.RESET_ALL} total")
+        ticket = update_total_minutes_worked(ticket)
         ticket.busy = False
         log(f"\t\t{Fore.RED}Stopped{Style.RESET_ALL}")
     log()
-
     return new_list
 
 def calculate_total_minutes(ticket: Ticket) -> int:
@@ -43,6 +39,15 @@ def calculate_total_minutes(ticket: Ticket) -> int:
     start_time = datetime.strptime(ticket.startTime, TIME_FORMAT)
     time_difference = end_time - start_time
     return int(time_difference.total_seconds() / 60)
+
+
+def update_total_minutes_worked(ticket: Ticket) -> Ticket:
+    minutes_this_session = calculate_total_minutes(ticket)
+    ticket.timeWorkedInMinutes += minutes_this_session
+    ticket.startTime = datetime.now().strftime(TIME_FORMAT)
+    log(f"\t\tWorked {Fore.GREEN}{minutes_this_session}{Style.RESET_ALL} minutes, " +
+        f"{Fore.GREEN}{ticket.timeWorkedInMinutes}{Style.RESET_ALL} total")
+    return ticket
 
 
 def start_ticket(ticket: Ticket) -> Ticket:

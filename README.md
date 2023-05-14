@@ -11,7 +11,7 @@ Both the scripts use a file called List.json. If you do not yet have it, the ent
 ## entry.py
 You can call this script by using following script.
 ```
-python3 ./entry.py {ticketName}
+python ./entry.py {ticketName}
 ```
 If the given ticket name has not yet been used, a new ticket entry will be created, immediatly setting it to active.
 If the given ticket name has already been used and is currently active, it will be put inactive and the time spent will be updated.
@@ -27,10 +27,25 @@ Don't worry! All entries that do not have today's date, will be cleared automati
 ## clear.py
 You can call this script by using following script.
 ```
-python3 ./clear.py
+python ./clear.py
 ```
-
 This will replace the file input with an empty array, ready for new use.
+
+## rename.py
+You can call this script by using following script.
+```
+python ./rename.py {oldTicketName} {newTicketName}
+```
+This script will update the old ticketname to the new ticketname if it exists.
+If it doesn't exist, you will receive an error in the console and the script will stop.
+
+## update_entry.py
+You can call this script by using following script.
+```
+python ./update_entry.py {ticketName}
+```
+If the given ticket is not in you list.json file, you will receive an error in the  console and the program will not do anything.  
+If the script is in the list.json file, the ticket startTime and timeWorkedInMinutes will be updated.
 
 ## Extra functionalities
 I have added a Logger file to make printing even easier. Feel free to implement extra things to it.

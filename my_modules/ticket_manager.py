@@ -7,9 +7,10 @@ from typing import List
 from colorama import Fore, Style
 
 from . import DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING
-from .logger import log
+from .logger import log, error
 from .ticket import Ticket
-from .file_adjuster import override_file, stop_busy_tickets, start_ticket
+from .file_adjuster import (override_file, stop_busy_tickets,
+                            start_ticket, update_total_minutes_worked)
 
 
 def add_entry(ticket_name: str) -> None:
@@ -77,7 +78,21 @@ def handle_new_ticket(name, used_tickets: List[Ticket]) -> List[str]:
 def rename(original_name: str, new_name: str) -> None:
     used_tickets = get_used_tickets()
     ticket_to_rename = get_ticket_to_change(original_name, used_tickets)
+    if ticket_to_rename.name == "":
+        error(f"Ticket doesn't seem to exist. ({original_name})")
+        return
     log(f"{Fore.GREEN}Found{Style.RESET_ALL} {ticket_to_rename.name}")
     ticket_to_rename.name = new_name
     override_file(used_tickets)
     log(f"Renamed to {Fore.GREEN}{ticket_to_rename.name}{Style.RESET_ALL}")
+
+
+def update_entry(ticket_name: str) -> None:
+    used_tickets = get_used_tickets()
+    ticket_to_change = get_ticket_to_change(ticket_name, used_tickets)
+    if ticket_to_change.name == "":
+        error(f"Ticket doesn't seem to exist. ({ticket_name})")
+        return
+    update_total_minutes_worked(ticket_to_change)
+    override_file(used_tickets)
+    return
