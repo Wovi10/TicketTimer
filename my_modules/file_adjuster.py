@@ -20,7 +20,8 @@ def override_file(used_tickets: List[Ticket]):
 
 def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
     new_list = used_tickets
-    log(f"{Fore.RED}Stopping{Style.RESET_ALL} tickets:")
+    if len(new_list) > 0:
+        log(f"{Fore.RED}Stopping{Style.RESET_ALL} tickets:")
     for ticket in new_list:
         log(f"\t- {ticket.name}")
         if not ticket.busy:
