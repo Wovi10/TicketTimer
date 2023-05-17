@@ -66,7 +66,7 @@ def get_ticket_to_change(ticket_name: str, used_tickets: List[Ticket]) -> Ticket
 
 def get_active_ticket(used_tickets: List[Ticket]) -> Ticket:
     for ticket in used_tickets:
-        if ticket.busy == True:
+        if ticket.busy is True:
             return ticket
     return Ticket()
 
