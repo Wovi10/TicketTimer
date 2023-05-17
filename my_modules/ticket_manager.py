@@ -64,6 +64,12 @@ def get_ticket_to_change(ticket_name: str, used_tickets: List[Ticket]) -> Ticket
             return ticket
     return Ticket()
 
+def get_active_ticket(used_tickets: List[Ticket]) -> Ticket:
+    for ticket in used_tickets:
+        if ticket.busy == True:
+            return ticket
+    return Ticket()
+
 
 def handle_new_ticket(name, used_tickets: List[Ticket]) -> List[str]:
     new_list = used_tickets
@@ -87,11 +93,11 @@ def rename(original_name: str, new_name: str) -> None:
     log(f"Renamed to {Fore.GREEN}{ticket_to_rename.name}{Style.RESET_ALL}")
 
 
-def update_entry(ticket_name: str) -> None:
+def update_entry() -> None:
     used_tickets = get_used_tickets()
-    ticket_to_change = get_ticket_to_change(ticket_name, used_tickets)
+    ticket_to_change = get_active_ticket(used_tickets)
     if ticket_to_change.name == "":
-        error(f"Ticket doesn't seem to exist. ({ticket_name})")
+        error("No active ticket was found.")
         return
     update_total_minutes_worked(ticket_to_change)
     override_file(used_tickets)
