@@ -2,10 +2,11 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-module-docstring
 from datetime import datetime
+from colorama import Fore, Style
+from .logger import log
 from . import TIME_FORMAT, DATE_FORMAT
 
 
-# pylint: disable=too-few-public-methods
 class Ticket:
     NAME_DEFAULT = ""
     BUSY_DEFAULT = False
@@ -30,3 +31,12 @@ class Ticket:
         self.startTime = self.startTime or Ticket.STARTTIME_DEFAULT
         self.timeWorkedInMinutes = self.timeWorkedInMinutes or Ticket.TIMEWORKED_DEFAULT
         self.date = self.date or Ticket.DATE_DEFAULT
+
+
+    def to_string(self):
+        if self.busy:
+            busy_text = f"{Fore.GREEN}Busy.{Style.RESET_ALL}"
+        else:
+            busy_text = f"{Fore.RED}Not busy.{Style.RESET_ALL}"
+        log(f"- {Fore.BLUE}{self.name}{Style.RESET_ALL}: Worked for " \
+            f"{self.timeWorkedInMinutes} minutes. {busy_text}")

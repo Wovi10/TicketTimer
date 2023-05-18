@@ -31,19 +31,20 @@ def get_used_tickets() -> List[Ticket]:
         with open(FILENAME, READ_MODE, encoding=DEFAULT_ENCODING) as file:
             data = json.load(file)
         used_tickets = [Ticket(**ticket) for ticket in data]
-        clean_file(used_tickets)
-        return used_tickets
+        cleaned_list = clean_file(used_tickets)
+        return cleaned_list
     except json.JSONDecodeError:
         return []
 
 
-def clean_file(used_tickets: List[Ticket]) -> None:
+def clean_file(used_tickets: List[Ticket]) -> List[Ticket]:
     new_list = []
     for ticket in used_tickets:
         date: str = ticket.date or datetime.now().strftime(DATE_FORMAT)
         if date == datetime.now().strftime(DATE_FORMAT):
             new_list.append(ticket)
     override_file(new_list)
+    return new_list
 
 
 def handle_used_ticket(ticket_name: str, used_tickets: List[Ticket]) -> List[str]:
@@ -63,6 +64,7 @@ def get_ticket_to_change(ticket_name: str, used_tickets: List[Ticket]) -> Ticket
         if ticket.name.lower() == ticket_name_small:
             return ticket
     return Ticket()
+
 
 def get_active_ticket(used_tickets: List[Ticket]) -> Ticket:
     for ticket in used_tickets:
@@ -101,4 +103,18 @@ def update_entry() -> None:
         return
     update_total_minutes_worked(ticket_to_change)
     override_file(used_tickets)
+    return
+
+
+def print_tickets() -> None:
+    log()
+    used_tickets = get_used_tickets()
+    if len(used_tickets) <= 0:
+        error("No tickets were logged just yet.")
+        log()
+        return
+    log("Printing all tickets of today:")
+    for ticket in used_tickets:
+        ticket.to_string()
+    log()
     return
