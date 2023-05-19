@@ -3,6 +3,9 @@ I created this repo to practice my Python and have something I can actually use.
 It consists out of two usable script for now:
 1. entry.py
 2. clear.py
+3. rename.py
+4. update.py
+5. print.py
 
 You will need to have Python3 installed for both.
 To run any of the scripts, make sure you are located in the root directory of the project (The one that includes /myModules, /resources and the two scripts).
@@ -39,13 +42,19 @@ python ./rename.py {oldTicketName} {newTicketName}
 This script will update the old ticketname to the new ticketname if it exists.
 If it doesn't exist, you will receive an error in the console and the script will stop.
 
-## update_entry.py
+## update.py
 You can call this script by using following script.
 ```
-python ./update_entry.py {ticketName}
+python ./update_entry.py
 ```
-If the given ticket is not in you list.json file, you will receive an error in the  console and the program will not do anything.  
-If the script is in the list.json file, the ticket startTime and timeWorkedInMinutes will be updated.
+Will update the currently active ticket startTime and timeWorkedInMinutes.
+
+## print.py
+You can call this script by using following script
+```
+python ./print.py
+```
+Will list all tickets of today, including  their time worked in minutes and if they are currently active or not.
 
 ## Extra functionalities
 I have added a Logger file to make printing even easier. Feel free to implement extra things to it.
