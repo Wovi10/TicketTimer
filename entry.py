@@ -2,8 +2,8 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-module-docstring
 import sys
-from .my_modules import ticket_manager, logger
-from .my_modules.input_sanitiser import sanitise_script_input
+from my_modules import ticket_manager, logger
+from my_modules.input_sanitiser import sanitise_script_input
 
 def main(arg):
     logger.log()
