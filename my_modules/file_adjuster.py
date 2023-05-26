@@ -23,10 +23,9 @@ def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
     if len(new_list) > 0:
         log(f"{Fore.RED}Stopping{Style.RESET_ALL} tickets:")
     for ticket in new_list:
-        log(f"\t- {ticket.name}")
         if not ticket.busy:
-            log(f"\t\t{Fore.BLUE}Skipped{Style.RESET_ALL}")
             continue
+        log(f"\t- {ticket.name}")
 
         ticket = update_total_minutes_worked(ticket)
         ticket.busy = False
