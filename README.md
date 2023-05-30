@@ -48,6 +48,7 @@ You can call this script by using following script.
 python ./update_entry.py
 ```
 Will update the currently active ticket startTime and timeWorkedInMinutes.
+If a ticket is not active, it will be skipped.
 
 ## print.py
 You can call this script by using following script
