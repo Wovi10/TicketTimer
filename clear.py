@@ -4,7 +4,6 @@
 from my_modules import clear_file, logger
 
 def main():
-    logger.log()
     clear_file.clear()
     logger.log()
 
