@@ -107,7 +107,6 @@ def update_entry() -> None:
 
 
 def print_tickets() -> None:
-    log()
     used_tickets = get_used_tickets()
     if len(used_tickets) <= 0:
         error("No tickets were logged just yet.")

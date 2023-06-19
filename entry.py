@@ -6,7 +6,6 @@ from my_modules import ticket_manager, logger
 from my_modules.input_sanitiser import sanitise_script_input
 
 def main(arg):
-    logger.log()
     ticket_manager.add_entry(arg)
     logger.log()
 

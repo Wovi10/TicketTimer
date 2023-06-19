@@ -7,7 +7,6 @@ from my_modules.input_sanitiser import sanitise_script_input
 
 
 def main(old_name: str, new_name: str):
-    logger.log()
     ticket_manager.rename(old_name, new_name)
     logger.log()
 
