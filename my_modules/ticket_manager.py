@@ -133,8 +133,8 @@ def delete_entry(ticket_name: str):
     override_file(new_list)
 
 
-def handle_delete_ticket(ticket_name: str, list: List[Ticket]) -> List[Ticket]:
-    new_list = list
+def handle_delete_ticket(ticket_name: str, used_tickets: List[Ticket]) -> List[Ticket]:
+    new_list = used_tickets
     ticket_to_delete = None
     for ticket in new_list:
         if ticket.name.lower() == ticket_name.lower():
@@ -142,5 +142,5 @@ def handle_delete_ticket(ticket_name: str, list: List[Ticket]) -> List[Ticket]:
             continue
     if ticket_to_delete is not None:
         new_list.remove(ticket_to_delete)
-    
+
     return new_list
