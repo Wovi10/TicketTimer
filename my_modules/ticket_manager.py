@@ -118,3 +118,29 @@ def print_tickets() -> None:
         ticket.to_string()
     log()
     return
+
+
+def delete_entry(ticket_name: str):
+    used_tickets: List[Ticket] = get_used_tickets()
+    used_ticket_names: List[str] = [ticket.name for ticket in used_tickets] or []
+
+    new_list = used_tickets
+
+    if ticket_name in used_ticket_names:
+        new_list = handle_delete_ticket(ticket_name, new_list)
+    else:
+        error("Didn't find ticket.")
+    override_file(new_list)
+
+
+def handle_delete_ticket(ticket_name: str, list: List[Ticket]) -> List[Ticket]:
+    new_list = list
+    ticket_to_delete = None
+    for ticket in new_list:
+        if ticket.name.lower() == ticket_name.lower():
+            ticket_to_delete = ticket
+            continue
+    if ticket_to_delete is not None:
+        new_list.remove(ticket_to_delete)
+    
+    return new_list
