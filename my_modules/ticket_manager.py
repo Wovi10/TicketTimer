@@ -3,6 +3,7 @@
 # pylint: disable=missing-module-docstring
 import json
 from datetime import datetime
+from pathlib import Path
 from typing import List
 from colorama import Fore, Style
 
@@ -28,11 +29,16 @@ def add_entry(ticket_name: str) -> None:
 
 def get_used_tickets() -> List[Ticket]:
     try:
+        if not Path(FILENAME).is_file():
+            return []
         with open(FILENAME, READ_MODE, encoding=DEFAULT_ENCODING) as file:
             data = json.load(file)
-        used_tickets = [Ticket(**ticket) for ticket in data]
-        cleaned_list = clean_file(used_tickets)
-        return cleaned_list
+        used_tickets = [Ticket(**ticket) for ticket in data[0]]
+
+        date: str = used_tickets[0].date or datetime.now().strftime(DATE_FORMAT)
+        if date != datetime.now().strftime(DATE_FORMAT):
+            return []
+        return used_tickets
     except json.JSONDecodeError:
         return []
 
@@ -144,6 +150,7 @@ def handle_delete_ticket(ticket_name: str, used_tickets: List[Ticket]) -> List[T
 
     return new_list
 
+
 def stop_entry():
     used_tickets = get_used_tickets()
     ticket_to_change = get_active_ticket(used_tickets)
@@ -153,6 +160,7 @@ def stop_entry():
     stop_ticket(ticket_to_change)
     override_file(used_tickets)
     return
+
 
 def total_time_worked():
     used_tickets = get_used_tickets()
@@ -164,9 +172,9 @@ def total_time_worked():
 
 
 def mock_tickets():
-    tickets = []
+    tickets: List[Ticket] = []
     for _ in range(0,5):
-        ticket = Ticket("Mock", False)
+        ticket = Ticket("Mock")
         ticket.set_defaults()
         tickets.append(ticket)
     override_file(tickets)
