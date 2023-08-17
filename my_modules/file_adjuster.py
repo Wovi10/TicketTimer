@@ -17,21 +17,24 @@ def override_file(used_tickets: List[Ticket]):
 
     with open(FILENAME, WRITE_MODE, encoding=DEFAULT_ENCODING) as file:
         json.dump(used_tickets, file, cls=TicketEncoder)
+    log("Done overriding file")
+
 
 def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
     new_list = used_tickets
     if len(new_list) > 0:
         log(f"{Fore.RED}Stopping{Style.RESET_ALL} tickets:")
-    for ticket in new_list:
-        if not ticket.busy:
-            continue
-        log(f"\t- {ticket.name}")
+        for ticket in new_list:
+            if not ticket.busy:
+                continue
+            log(f"\t- {ticket.name}")
 
-        ticket = update_total_minutes_worked(ticket)
-        ticket.busy = False
-        log(f"\t\t{Fore.RED}Stopped{Style.RESET_ALL}")
+            ticket = update_total_minutes_worked(ticket)
+            ticket.busy = False
+            log(f"\t\t{Fore.RED}Stopped{Style.RESET_ALL}")
     log()
     return new_list
+
 
 def calculate_total_minutes(ticket: Ticket) -> int:
     end_time = datetime.now().strftime(TIME_FORMAT)
@@ -55,6 +58,7 @@ def start_ticket(ticket: Ticket) -> Ticket:
     ticket.busy = True
     log(f"{Fore.GREEN}Started{Style.RESET_ALL} {ticket.name}")
     return ticket
+
 
 def stop_ticket(ticket: Ticket) -> Ticket:
     ticket = update_total_minutes_worked(ticket)

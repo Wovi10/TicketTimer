@@ -161,3 +161,12 @@ def total_time_worked():
         if ticket.timeWorkedInMinutes >= 0:
             total_minutes += ticket.timeWorkedInMinutes
     log(f"Worked {Fore.GREEN}{total_minutes}{Fore.RESET} minutes today")
+
+
+def mock_tickets():
+    tickets = []
+    for _ in range(0,5):
+        ticket = Ticket("Mock", False)
+        ticket.set_defaults()
+        tickets.append(ticket)
+    override_file(tickets)
