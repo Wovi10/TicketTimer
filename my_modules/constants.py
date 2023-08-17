@@ -4,7 +4,7 @@
 from datetime import datetime
 
 
-FILENAME = './list.json'
+FILENAME = './mock_list.json'
 READ_MODE = 'r'
 WRITE_MODE = 'w'
 TIME_FORMAT = '%H:%M:%S'

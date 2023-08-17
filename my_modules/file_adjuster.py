@@ -11,12 +11,9 @@ from .ticket import Ticket
 from .ticket_encoder import TicketEncoder
 
 
-def override_file(used_tickets: List[Ticket]):
-    for ticket in used_tickets:
-        ticket.set_defaults()
-
+def override_file(all_tickets: List[List[Ticket]]):
     with open(FILENAME, WRITE_MODE, encoding=DEFAULT_ENCODING) as file:
-        json.dump(used_tickets, file, cls=TicketEncoder)
+        json.dump(all_tickets, file, cls=TicketEncoder)
     log("Done overriding file")
 
 
