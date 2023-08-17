@@ -21,7 +21,7 @@ def override_file(used_tickets: List[Ticket]):
             if not data == '':
                 first_item: Ticket = data[0][0]
                 date: str = first_item['date'] or datetime.now().strftime(DATE_FORMAT)
-                
+
                 if date != datetime.now().strftime(DATE_FORMAT):
                     in_file: List[Ticket] = [Ticket(**ticket) for ticket in data[0]]
                     ticket_arrays.insert(0, in_file)
