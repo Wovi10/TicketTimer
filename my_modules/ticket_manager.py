@@ -3,6 +3,7 @@
 # pylint: disable=missing-module-docstring
 import json
 from datetime import datetime
+from pathlib import Path
 from typing import List
 from colorama import Fore, Style
 
@@ -28,10 +29,11 @@ def add_entry(ticket_name: str) -> None:
 
 def get_used_tickets() -> List[Ticket]:
     try:
+        if not Path(FILENAME).is_file():
+            return []
         with open(FILENAME, READ_MODE, encoding=DEFAULT_ENCODING) as file:
             data = json.load(file)
-        ticket_arrays = [List[Ticket] for ticket_array in data]
-        used_tickets = [Ticket(ticket) for ticket in ticket_arrays[0]]
+        used_tickets = [Ticket(**ticket) for ticket in data[0]]
 
         date: str = used_tickets[0].date or datetime.now().strftime(DATE_FORMAT)
         if date != datetime.now().strftime(DATE_FORMAT):
@@ -170,9 +172,9 @@ def total_time_worked():
 
 
 def mock_tickets():
-    tickets = []
+    tickets: List[Ticket] = []
     for _ in range(0,5):
-        ticket = Ticket("Mock", False)
+        ticket = Ticket("Mock")
         ticket.set_defaults()
         tickets.append(ticket)
     override_file(tickets)

@@ -3,18 +3,40 @@
 # pylint: disable=missing-module-docstring
 from datetime import datetime
 import json
+from pathlib import Path
 from typing import List
 from colorama import Fore, Style
-from . import FILENAME, WRITE_MODE, DEFAULT_ENCODING, TIME_FORMAT
-from .logger import log
+from . import FILENAME, WRITE_MODE, DEFAULT_ENCODING, TIME_FORMAT, READ_MODE, DATE_FORMAT
+from .logger import log, error
 from .ticket import Ticket
 from .ticket_encoder import TicketEncoder
 
 
-def override_file(all_tickets: List[List[Ticket]]):
-    with open(FILENAME, WRITE_MODE, encoding=DEFAULT_ENCODING) as file:
-        json.dump(all_tickets, file, cls=TicketEncoder)
-    log("Done overriding file")
+def override_file(used_tickets: List[Ticket]):
+    try:
+        ticket_arrays = []
+        if Path(FILENAME).is_file():
+            with open(FILENAME, READ_MODE, encoding=DEFAULT_ENCODING) as file:
+                data = json.load(file)
+            if not data == '':
+                first_item: Ticket = data[0][0]
+                date: str = first_item['date'] or datetime.now().strftime(DATE_FORMAT)
+                
+                if date != datetime.now().strftime(DATE_FORMAT):
+                    in_file: List[Ticket] = [Ticket(**ticket) for ticket in data[0]]
+                    ticket_arrays.insert(0, in_file)
+                elif len(data) > 1:
+                    in_file: List[Ticket] = [Ticket(**ticket) for ticket in data[1]]
+
+        ticket_arrays.insert(0, used_tickets)
+
+        with open(FILENAME, WRITE_MODE, encoding=DEFAULT_ENCODING) as file:
+            json.dump(ticket_arrays, file, cls=TicketEncoder)
+        log("Done overriding file")
+        return
+    except json.JSONDecodeError as err:
+        error(err.msg)
+        return
 
 
 def stop_busy_tickets(used_tickets: List[Ticket]) -> List[Ticket]:
