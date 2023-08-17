@@ -153,3 +153,11 @@ def stop_entry():
     stop_ticket(ticket_to_change)
     override_file(used_tickets)
     return
+
+def total_time_worked():
+    used_tickets = get_used_tickets()
+    total_minutes = 0
+    for ticket in used_tickets:
+        if ticket.timeWorkedInMinutes >= 0:
+            total_minutes += ticket.timeWorkedInMinutes
+    log(f"Worked {Fore.GREEN}{total_minutes}{Fore.RESET} minutes today")
