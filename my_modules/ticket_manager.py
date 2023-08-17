@@ -10,7 +10,7 @@ from . import DATE_FORMAT, FILENAME, READ_MODE, DEFAULT_ENCODING
 from .logger import log, error
 from .ticket import Ticket
 from .file_adjuster import (override_file, stop_busy_tickets,
-                            start_ticket, update_total_minutes_worked)
+                            start_ticket, stop_ticket, update_total_minutes_worked)
 
 
 def add_entry(ticket_name: str) -> None:
@@ -143,3 +143,13 @@ def handle_delete_ticket(ticket_name: str, used_tickets: List[Ticket]) -> List[T
         new_list.remove(ticket_to_delete)
 
     return new_list
+
+def stop_entry():
+    used_tickets = get_used_tickets()
+    ticket_to_change = get_active_ticket(used_tickets)
+    if ticket_to_change.name == "":
+        error("No active ticket was found.")
+        return
+    stop_ticket(ticket_to_change)
+    override_file(used_tickets)
+    return

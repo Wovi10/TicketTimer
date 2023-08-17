@@ -55,3 +55,9 @@ def start_ticket(ticket: Ticket) -> Ticket:
     ticket.busy = True
     log(f"{Fore.GREEN}Started{Style.RESET_ALL} {ticket.name}")
     return ticket
+
+def stop_ticket(ticket: Ticket) -> Ticket:
+    ticket = update_total_minutes_worked(ticket)
+    ticket.busy = False
+    log(f"{Fore.RED}Stopped{Style.RESET_ALL} {ticket.name}")
+    return ticket
