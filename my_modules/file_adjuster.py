@@ -32,7 +32,6 @@ def override_file(used_tickets: List[Ticket]):
 
         with open(FILENAME, WRITE_MODE, encoding=DEFAULT_ENCODING) as file:
             json.dump(ticket_arrays, file, cls=TicketEncoder)
-        log("Done overriding file")
         return
     except json.JSONDecodeError as err:
         error(err.msg)
