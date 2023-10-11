@@ -1,3 +1,5 @@
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-module-docstring
 import click
 from my_modules import clear_file, ticket_manager, logger
 from my_modules.input_sanitiser import sanitise_script_input
