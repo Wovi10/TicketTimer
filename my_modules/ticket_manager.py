@@ -147,6 +147,7 @@ def handle_delete_ticket(ticket_name: str, used_tickets: List[Ticket]) -> List[T
             continue
     if ticket_to_delete is not None:
         new_list.remove(ticket_to_delete)
+        log("Ticket deleted")
 
     return new_list
 
