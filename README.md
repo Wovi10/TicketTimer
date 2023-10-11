@@ -6,16 +6,7 @@ python ./tickettimer.py function "Possible Arguments"
 ```
 
 I created this repo to practice my Python and have something I can actually use.
-It consists out of following usable funcitons:
-1. entry
-2. print-tickets
-3. delete
-4. clear
-5. mock-data
-6. rename
-7. stop
-8. time-worked
-9. update
+It consists out of following usable functions:
 
 - [entry](#entry)
 - [print-tickets](#print-tickets)
