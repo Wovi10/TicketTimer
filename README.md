@@ -17,19 +17,17 @@ It consists out of following usable funcitons:
 8. time-worked
 9. update
 
-- [TicketTimer](#tickettimer)
-  - [entry](#entry)
-    - [Forgot to clear your file?](#forgot-to-clear-your-file)
-  - [print-tickets](#print-tickets)
-  - [delete](#delete)
-  - [clear](#clear)
-  - [mock-data](#mock-data)
-  - [rename](#rename)
-  - [stop](#stop)
-  - [time-worked](#time-worked)
-  - [update](#update)
-  - [Extra functionalities](#extra-functionalities)
-  - [Possible later additions](#possible-later-additions)
+- [entry](#entry)
+- [print-tickets](#print-tickets)
+- [delete](#delete)
+- [clear](#clear)
+- [mock-data](#mock-data)
+- [rename](#rename)
+- [stop](#stop)
+- [time-worked](#time-worked)
+- [update](#update)
+- [Extra functionalities](#extra-functionalities)
+- [Possible later additions](#possible-later-additions)
 
 You will need to have Python3 installed for both.
 To run any of the scripts, make sure you are located in the root directory of the project (The one that includes /myModules, /resources and the two scripts).
