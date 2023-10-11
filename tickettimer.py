@@ -39,12 +39,24 @@ def rename(old_name, new_name):
     ticket_manager.rename(old_name, new_name)
     logger.log()
 
+@click.command()
+def stop():
+    ticket_manager.stop_entry()
+    logger.log()
+
+@click.command()
+def time_worked():
+    ticket_manager.total_time_worked()
+    logger.log()
+
 cli.add_command(entry)
 cli.add_command(print_tickets)
 cli.add_command(delete)
 cli.add_command(clear)
 cli.add_command(mock_data)
 cli.add_command(rename)
+cli.add_command(stop)
+cli.add_command(time_worked)
 
 if __name__ == '__main__':
     cli()
