@@ -27,10 +27,24 @@ def clear():
     clear_file.clear()
     logger.log()
 
+@click.command()
+def mock_data():
+    ticket_manager.mock_tickets()
+    logger.log()
+
+@click.command()
+@click.argument('old_name')
+@click.argument('new_name')
+def rename(old_name, new_name):
+    ticket_manager.rename(old_name, new_name)
+    logger.log()
+
 cli.add_command(entry)
 cli.add_command(print_tickets)
 cli.add_command(delete)
 cli.add_command(clear)
+cli.add_command(mock_data)
+cli.add_command(rename)
 
 if __name__ == '__main__':
     cli()
