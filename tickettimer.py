@@ -49,6 +49,11 @@ def time_worked():
     ticket_manager.total_time_worked()
     logger.log()
 
+@click.command()
+def update():
+    ticket_manager.update_entry()
+    logger.log()
+
 cli.add_command(entry)
 cli.add_command(print_tickets)
 cli.add_command(delete)
@@ -57,6 +62,7 @@ cli.add_command(mock_data)
 cli.add_command(rename)
 cli.add_command(stop)
 cli.add_command(time_worked)
+cli.add_command(update)
 
 if __name__ == '__main__':
     cli()
