@@ -8,13 +8,13 @@ python ./tickettimer.py function "Possible Arguments"
 I created this repo to practice my Python and have something I can actually use.
 It consists out of following usable funcitons:
 1. entry
-2. print_tickets
+2. print-tickets
 3. delete
 4. clear
-5. mock_data
+5. mock-data
 6. rename
 7. stop
-8. time_worked
+8. time-worked
 9. update
 
 You will need to have Python3 installed for both.
@@ -35,10 +35,10 @@ There will always be at most <ins>one</ins> ticket active.
 ### Forgot to clear your file?
 Don't worry! All entries that do not have today's date, will be cleared automatically.
 
-## print_tickets
-You can call this function by using following command:
+## print-tickets
+You can all this function by using following command:
 ```
-python ./tickettimer.py print_tickets
+python ./tickettimer.py print-tickets
 ```
 Will list all tickets of today, including  their time worked in minutes and if they are currently active or not.
 
@@ -56,10 +56,10 @@ python ./tickettimer.py clear
 ```
 This will replace the file input with an empty array, ready for new use.
 
-## mock_data
+## mock-data
 You can call this function by using following command:
 ```
-python ./tickettimer.py mock_data
+python ./tickettimer.py mock-data
 ```
 This will create a list with mock data to test on.
 
@@ -78,10 +78,10 @@ python ./tickettimer.py stop
 ```
 This will stop any running ticket.
 
-## time_worked
+## time-worked
 You can call this function by using following command:
 ```
-python ./tickettimer.py time_worked
+python ./tickettimer.py time-worked
 ```
 This will print the total time worked (in minutes) to your console.
 
