@@ -96,9 +96,17 @@ def rename(original_name: str, new_name: str) -> None:
         error(f"Ticket doesn't seem to exist. ({original_name})")
         return
     log(f"{Fore.GREEN}Found{Style.RESET_ALL} {ticket_to_rename.name}")
-    ticket_to_rename.name = new_name
+    existing_ticket = get_ticket_to_change(new_name, used_tickets)
+    if existing_ticket.name != "":
+        existing_ticket.timeWorkedInMinutes += ticket_to_rename.timeWorkedInMinutes
+        stop_ticket(ticket_to_rename)
+        start_ticket(existing_ticket)
+        used_tickets = handle_delete_ticket(ticket_to_rename.name, used_tickets)
+    else:
+        ticket_to_rename.name = new_name
+
     override_file(used_tickets)
-    log(f"Renamed to {Fore.GREEN}{ticket_to_rename.name}{Style.RESET_ALL}")
+    log(f"Renamed to {Fore.GREEN}{new_name}{Style.RESET_ALL}")
 
 
 def update_entry() -> None:

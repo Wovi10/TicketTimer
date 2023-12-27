@@ -20,7 +20,7 @@ def entry(ticket_name):
     ticket_manager.add_entry(ticket_name)
 
 @click.command()
-def print_tickets():
+def tickets():
     """Print all tickets of today
     """
     ticket_manager.print_tickets()
@@ -80,7 +80,7 @@ def update():
     ticket_manager.update_entry()
 
 cli.add_command(entry)
-cli.add_command(print_tickets)
+cli.add_command(tickets)
 cli.add_command(delete)
 cli.add_command(clear)
 cli.add_command(mock_data)
