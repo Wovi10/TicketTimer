@@ -115,6 +115,7 @@ def update_entry() -> None:
     if ticket_to_change.name == "":
         error("No active ticket was found.")
         return
+    log(f"{Fore.GREEN}Found{Style.RESET_ALL} {ticket_to_change.name}")
     update_total_minutes_worked(ticket_to_change)
     override_file(used_tickets)
     return
